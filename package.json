@@ -10,6 +10,7 @@
   "license": "proprietary",
   "description": "A small text adventure game made for practice and fun",
   "dependencies": {
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "pg": "^8.12.0"
   }
 }
