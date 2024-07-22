@@ -4,7 +4,6 @@ let level = 1;
 let hp = 100;
 let mp = 100;
 let strength = 1;
-let agility = 1;
 let constitution = 1;
 let intellingence = 1;
 let luck = 1;
