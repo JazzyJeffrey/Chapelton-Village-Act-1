@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles.css"/>
+        <title>Chapleton Village: A Text Adventure Game - Act 1</title>
+    </head>
+    <body>
+        <div id="game">
+            <div id="stats">
+              <span class="stat">Character Name: <strong><span id="currentCharacterText"></span></strong></span>
+              <span class="stat">HP: <strong><span id="healthText">100</span></strong></span>
+              <span class="stat">MP: <strong><span id="mpText">100</span></strong></span>
+              <span class="stat">Level: <strong><span id="levelText">1</span></strong></span>
+              <span class="stat">Gold: <strong><span id="goldText">0</span></strong></span>
+            </div>
+            <div id="monsterStats">
+              <span class="stat">Monster Name: <strong><span id="monsterName"></span></strong></span>
+              <span class="stat">Health: <strong><span id="monsterHealth"></span></strong></span>
+            </div>
+            <div id="inventoryModal">
+              <dialog id="inventory">
+                <h2>Inventory</h2>
+                <ul id="currentInventory"></ul>
+                <button id="equipWeapon" type="button">Equip Weapon Test</button>
+                <button id="closeInventoryButton" type="button" autofocus>Close Inventory</button>
+              </dialog>
+            </div>
+            <div id="playerStatsModal">
+              <dialog id="playerStats">
+                <h3>Character Sheet</h3>
+                <ul id="playerStatSheet">
+                  <li class="playerStat">Max HP: <strong><span id="maxHPText">100</span></strong></li> 
+                  <li class="playerStat">Max MP: <strong><span id="maxMPText">100</span></strong></li>
+                  <li class="playerStat">Strength: <strong><span id="strengthText">1</span></strong></li>
+                  <li class="playerStat">Constitution: <strong><span id="constitutionText">1</span></strong></li>
+                  <li class="playerStat">Intelligence: <strong><span id="intelligenceText">1</span></strong></li>
+                  <li class="playerStat">Luck: <strong><span id="luckText">1</span></strong></li>
+                  <li class="playerStat">Damage: <strong><span id="damageText">1-2</span></strong></li>
+                  <li class="playerStat">Defense: <strong><span id="defenseText">1</span></strong></li>
+                </ul>
+                </ul>
+                <button id="closePlayerStatsButton" type="button" autofocus>Close Character Sheet</button>
+              </dialog>
+            </div>
+            <div id="text">
+              You awake in the middle of a strange village. As you sit up and look around, you see there are three small buildings and a cluster of huts scattered in a circle around a small chapel with a dry fountain perched in front. You see signs on the three larger buildings: Flying Lion Inn, Baelthor's Armory, and Frizzle's General Store. There's a wretched looking old man sitting on the edge of the fountain, staring down at the ground, silently, but somehow calling to you. If you're being honest with yourself, he creeps the hell out of you.
+            </div>
+            <div id="controls">
+                <button id="button1" type="button">Go to Flying Lion Inn</button>
+                <button id="button2" type="button">Go to Baelthor's Armory</button>
+                <button id="button3" type="button">Go to Frizzle's General Store</button>
+                <button id="button4" type="button">Go to the Chapel</button>
+                <button id="button5" type="button">Return to Village</button>
+                <button id="button6" type="button">Talk to the Creepy Old Man</button>
+              </div>
+          </div>
+          <button id="showInventoryButton" type="button">Check Inventory</button>
+          <button id="showPlayerStatsButton" type="button">Check Character Sheet</button>
+          <script src="js/classPractice.js"></script>
+    </body>
+</html>
