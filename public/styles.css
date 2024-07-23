@@ -16,6 +16,7 @@ body {
     margin: 30px auto 0px;
     padding: 10px;
     border-radius: 5px;
+    font-family: 'MedievalSharp', cursive;
   }
   
   #controls,
@@ -46,6 +47,7 @@ body {
     padding: 3px;
     margin-top: 2px;
     margin-bottom: 2px;
+    font-family: 'MedievalSharp', cursive;
   }
 
   button:active {
