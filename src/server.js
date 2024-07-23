@@ -1,7 +1,9 @@
+/*
 // Express Server connection
 const express = require('express');
 const app = express();
 const path = require('path');
+
 // Database connection
 require('dotenv').config();
 const { Client } = require('pg');
@@ -24,8 +26,6 @@ app.listen(PORT, () => {
 });
 
 
-
-
 const client = new Client({
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
@@ -37,3 +37,17 @@ const client = new Client({
 client.connect()
     .then(() => console.log("Connected to database"))
     .catch(err => console.log("Connection error", err.stack));
+*/
+
+// server.js
+const express = require('express');
+const routes = require('./routes');
+
+const app = express();
+const port = 8080;
+
+app.use(routes);
+
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
