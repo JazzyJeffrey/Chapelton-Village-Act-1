@@ -10,55 +10,6 @@ const testingButton = document.getElementById("button6");
 const testingButton2 = document.getElementById("button5");
 let inventory = [];
 
-let strength = 1;
-
-class Items {
-    constructor(name, type) {
-        this.name = name;
-        this.type = type;
-    }
-    addItemToTinventory(inventory) {
-        inventory.push(this);
-    }
-}
-
-class Weapon extends Items {
-    constructor(name, type, power, specialAbility) {
-        super(name, type);
-        this.power = power;
-        this.specialAbility = specialAbility;
-    }
-
-    equipWeapon() {
-        this.name = `EQ  ${this.name}`;
-        strength += this.power;
-        strengthText.innerText = strength;   
-    }
-}
-
-class Armor extends Items {
-    constructor(name, type, defense){
-        super(name, type);
-        this.defense = defense;
-    }
-
-    equipArmor() {
-
-    }
-}
-
-class Consumable extends Items {
-    constructor(name, type, usage){
-        super(name, type);
-        this.usage = usage;
-    }
-
-    useItem() {
-
-    }
-}
-
-
 function initalizewEventListeners() {
 
     showInventoryButton.addEventListener("click", () => {
@@ -102,22 +53,75 @@ function showInventory() {
 
     initalizewEventListeners();
     
+// Player Character
+const player = {
+    xp: 0,
+    level: 1,
+    hp: 100,
+    mp: 100,
+    strength: 1,
+    constitution: 1,
+    intellingence: 1,
+    luck: 1,
+    gold: 0,
+    currentWeapon: 0
+}
 
-const healthPotion = new Consumable("Health Potion", "Potion", "Restore 10-20 HP");    
-const woodenDagger = new Weapon("Wooden Dagger", "Weapon", 3, "none");
+// Function to fetch an item from the server
+async function fetchItemById(itemId) {
+    try {
+      const response = await fetch(`/api/items/${itemId}`);
+      if (response.ok) {
+        const item = await response.json();
+        return item;
+      } else {
+        console.error('Failed to fetch item:', response.statusText);
+        return null;
+      }
+    } catch (error) {
+      console.error('Error fetching item:', error);
+      return null;
+    }
+  }
+  
+  // Function to add an item to the inventory array and update the display
+  function addItemToInventory(item) {
+    inventory.push(item);
+  }
+  
+  testingButton2.addEventListener("click", () => {
+    addItemToInventory();
+  });
+   
+
+// Function to get random number
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+// Function to use item
+async function useItem(player, itemId) {
+    const item = await fetchItemById(itemId);
+    console.log(item);
+    if (item.stat_boosts) {
+      const boosts = item.stat_boosts;
+      for (let stat in boosts) {
+        if (player[stat] !== undefined) {
+          if (typeof boosts[stat] === 'object' && boosts[stat].min !== undefined && boosts[stat].max !== undefined) {
+            const randomBoost = getRandomInt(boosts[stat].min, boosts[stat].max);
+            player[stat] += randomBoost;
+            console.log(`Used ${item.name}. ${stat} increased by ${randomBoost}.`);
+          } else {
+            player[stat] += boosts[stat];
+            console.log(`Used ${item.name}. ${stat} increased by ${boosts[stat]}.`);
+          }
+        }
+      }
+    }
+};
+
 
 testingButton.addEventListener("click", () => {
-    woodenDagger.addItemToTinventory(inventory);
-    console.log(inventory);
-});
-
-testingButton2.addEventListener("click", () => {
-    healthPotion.addItemToTinventory(inventory);
-    console.log(inventory);
+    useItem(player, 1);
+    console.log(player.hp);
 })
-
-equipWeaponButton.addEventListener("click", () => {
-    woodenDagger.equipWeapon(inventory);
-    console.log(strength);
-})
-
