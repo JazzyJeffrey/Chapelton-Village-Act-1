@@ -15,7 +15,7 @@ let inventory = [luckyCoin];
 let activateSecretEntrance = false;
 
 // Lucky Coin Variable
-const luckyCoin = new consumable("Lucky Coin", "Unique", throwLuckyCoin());
+const luckyCoin = new Consumable("Lucky Coin", "Unique", throwLuckyCoin()); 
 
 function throwLuckyCoin() {
     if(inventory.includes(luckyCoin)) {
