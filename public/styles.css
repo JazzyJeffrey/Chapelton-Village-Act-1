@@ -7,8 +7,19 @@ body {
     color: #ffffff;
     padding: 10px;
   }
+
+  #loginPage {
+    max-width: 500px;
+    max-height: 400px;
+    background-color: #ffffff;
+    color: #202022;
+    margin: 30px auto 0px;
+    padding: 10px;
+    border-radius: 5px;
+    font-family: 'MedievalSharp', cursive;
+  }
   
-  #game, #loginPage {
+  #game{
     max-width: 500px;
     max-height: 400px;
     background-color: #ffffff;
@@ -17,6 +28,19 @@ body {
     padding: 10px;
     border-radius: 5px;
     font-family: 'MedievalSharp', cursive;
+  }
+
+  #gameTitle {
+    font-size: 2em;
+    margin-bottom: 10px;
+    text-align: center;
+    text-decoration: underline;
+  }
+
+  #loginHeader {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    text-align: center;
   }
   
   #controls,
