@@ -21,8 +21,9 @@ function initalizewEventListeners() {
     inventoryWindow.showModal();
   });
 
-  useHealthPotionButton.addEventListener("click", () => {
-    useHealthPotion();
+  useHealthPotionButton.addEventListener("click", async () => {
+   await useHealthPotion();
+   
   });
 
   useMagicPotionButton.addEventListener("click", () => {
@@ -141,20 +142,48 @@ testingButton.addEventListener("click", async () => {
   console.log(player.hp);
 })
 
+testingButton2.addEventListener("click", async () => {
+  await addItemToInventory(inventory, 2);
+  console.log(player.mp);
+})
+
 // Function for health potion
-function useHealthPotion() {
-  if (inventory.includes(fetchItemById(1))) {
-    useItem(player, 1);
+async function useHealthPotion() {
+  const healthPotionId = 1;
+  const healthPotion = await fetchItemById(healthPotionId);
+
+  if (!healthPotion) {
+    alert(`Failed to fetch Health Potion from the server.`);
+    return;
+  }
+
+  const itemInInventory = inventory.find(item => item.id === healthPotionId);
+
+  if (itemInInventory) {
+    useItem(player, healthPotionId);
+    inventory = inventory.filter(item => item.id !== healthPotionId); // Remove used item from inventory
+    updateInventory(inventory); // Update the inventory modal to reflect changes
   } else {
-    alert(`You don't have any Health Potions in your inventory.`)
-  };
+    alert(`You don't have any Health Potions in your inventory.`);
+  }
 }
 
 // Function for magic potion
-function useMagicPotion() {
-  if (inventory.includes(fetchItemById(2))) {
-    useItem(player, 2);
+async function useMagicPotion() {
+  const magicPotionId = 2;
+  const magicPotion = await fetchItemById(magicPotionId);
+  if (!magicPotion) {
+    alert(`Failed to fetch Magic Potion from the server.`)
+    return;
+  }
+
+  const itemInInventory = inventory.find(item => item.id === magicPotionId);
+
+  if (itemInInventory) {
+    useItem(player, magicPotionId);
+    inventory = inventory.filter(item => item.id !== magicPotionId);
+    updateInventory(inventory);
   } else {
-    alert(`You don't have any Magic Potions in your inventory.`)
-  };
+    alert(`You don't have any Magic Potions in your inventory.`);
+  }
 }
