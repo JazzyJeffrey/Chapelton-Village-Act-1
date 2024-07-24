@@ -157,12 +157,14 @@ async function useHealthPotion() {
     return;
   }
 
-  const itemInInventory = inventory.find(item => item.id === healthPotionId);
+  // Find the first occurrence of the magic potion in the inventory
+  const itemIndex = inventory.findIndex(item => item.id === healthPotionId);
 
-  if (itemInInventory) {
-    useItem(player, healthPotionId);
-    inventory = inventory.filter(item => item.id !== healthPotionId); // Remove used item from inventory
-    updateInventory(inventory); // Update the inventory modal to reflect changes
+  if (itemIndex !== -1) {
+    // Use the item and remove it from the inventory
+    await useItem(player, healthPotionId);
+    inventory.splice(itemIndex, 1);
+    updateInventory(inventory); // Update the inventory display
   } else {
     alert(`You don't have any Health Potions in your inventory.`);
   }
@@ -177,12 +179,14 @@ async function useMagicPotion() {
     return;
   }
 
-  const itemInInventory = inventory.find(item => item.id === magicPotionId);
+  // Find the first occurrence of the magic potion in the inventory
+  const itemIndex = inventory.findIndex(item => item.id === magicPotionId);
 
-  if (itemInInventory) {
-    useItem(player, magicPotionId);
-    inventory = inventory.filter(item => item.id !== magicPotionId);
-    updateInventory(inventory);
+  if (itemIndex !== -1) {
+    // Use the item and remove it from the inventory
+    await useItem(player, magicPotionId);
+    inventory.splice(itemIndex, 1);
+    updateInventory(inventory); // Update the inventory display
   } else {
     alert(`You don't have any Magic Potions in your inventory.`);
   }
