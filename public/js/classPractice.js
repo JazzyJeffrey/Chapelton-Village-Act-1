@@ -12,6 +12,9 @@ const closePlayerSheetButton = document.getElementById("closePlayerStatsButton")
 const strengthText = document.getElementById("strengthText");
 const testingButton = document.getElementById("button6");
 const testingButton2 = document.getElementById("button5");
+const testingButton3 = document.getElementById("button4");
+const healthText = document.querySelector("#healthText");
+const magicPointsText = document.querySelector("#mpText");
 
 // Function to initalize modal dialog window buttons
 function initalizewEventListeners() {
@@ -21,13 +24,17 @@ function initalizewEventListeners() {
     inventoryWindow.showModal();
   });
 
-  useHealthPotionButton.addEventListener("click", async () => {
-   await useHealthPotion();
+  useHealthPotionButton.addEventListener("click", () => {
+   useHealthPotion();
    
   });
 
   useMagicPotionButton.addEventListener("click", () => {
     useMagicPotion();
+  });
+
+  equipWeaponButton.addEventListener("click", () => {
+    equipWeapon();
   });
 
   closeInventoryButton.addEventListener("click", () => {
@@ -102,6 +109,22 @@ async function fetchItemById(itemId) {
   }
 }
 
+async function fetchWeaponById(weaponId) {
+  try{
+    const response = await fetch(`/api/weapons/${weaponId}`);
+    if (response.ok) {
+      const weapon = await response.json();
+      return weapon;
+    } else {
+      console.error('Failed to fetch weapon:', response.statusText);
+      return null;
+    }
+  } catch (error) {
+    console.error('Error fetching weapon:', error);
+    return null;
+  }
+}
+
 // Function to add an item to the inventory array
 async function addItemToInventory(inventory, itemId) {
   const item = await fetchItemById(itemId);
@@ -109,6 +132,11 @@ async function addItemToInventory(inventory, itemId) {
   console.log(inventory)
 }
 
+async function addWeaponToInventory(inventory, weaponId) {
+  const weapon = await fetchWeaponById(weaponId);
+  inventory.push(weapon);
+  console.log(inventory)
+}
 
 // Function to get random number
 function getRandomInt(min, max) {
@@ -136,6 +164,14 @@ async function useItem(player, itemId) {
   }
 };
 
+async function equipWeapon(player, weaponId) {
+  const weapon = await fetchWeaponById(weaponId);
+  console.log(weapon);
+  const weaponPower = weapon.weaponPower;
+  player.strength += weaponPower;
+  strengthText.textContent = player.strength;
+}
+
 // Testing inventory functions
 testingButton.addEventListener("click", async () => {
    await addItemToInventory(inventory, 1);
@@ -145,6 +181,11 @@ testingButton.addEventListener("click", async () => {
 testingButton2.addEventListener("click", async () => {
   await addItemToInventory(inventory, 2);
   console.log(player.mp);
+})
+
+testingButton3.addEventListener("click", async () => {
+  await addWeaponToInventory(inventory, 2);
+  console.log(inventory);
 })
 
 // Function for health potion
@@ -165,6 +206,8 @@ async function useHealthPotion() {
     await useItem(player, healthPotionId);
     inventory.splice(itemIndex, 1);
     updateInventory(inventory); // Update the inventory display
+    healthText.textContent = player.hp; // Update the hp display
+
   } else {
     alert(`You don't have any Health Potions in your inventory.`);
   }
@@ -187,7 +230,19 @@ async function useMagicPotion() {
     await useItem(player, magicPotionId);
     inventory.splice(itemIndex, 1);
     updateInventory(inventory); // Update the inventory display
+    magicPointsText.textContent = player.mp;
   } else {
     alert(`You don't have any Magic Potions in your inventory.`);
   }
 }
+
+// Character Name from local storage
+const currentCharacterName = document.querySelector("#currentCharacterText");
+
+const characterName = localStorage.getItem('characterName');
+if (characterName) {
+    currentCharacterName.textContent = characterName;
+} else {
+    window.location.href = 'login.html'; // Redirect back to login if no name found
+}
+
