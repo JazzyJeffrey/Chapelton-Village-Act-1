@@ -19,8 +19,8 @@ async function getItemById(id) {
   return result.rows[0];
 }
 
-async function getWeaponById(id) {
-  const result = await client.query('SELECT * FROM weapons WHERE id = $1', [id]);
+async function getWeaponById(weaponId) {
+  const result = await client.query('SELECT * FROM weapons WHERE id = $1', [weaponId]);
   return result.rows[0];
 }
 

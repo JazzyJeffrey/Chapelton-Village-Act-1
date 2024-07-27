@@ -33,8 +33,8 @@ function initalizewEventListeners() {
     useMagicPotion();
   });
 
-  equipWeaponButton.addEventListener("click", () => {
-    equipWeapon();
+  equipWeaponButton.addEventListener("click", async () => {
+    await equipWeapon(player, 2);
   });
 
   closeInventoryButton.addEventListener("click", () => {
@@ -86,7 +86,7 @@ const player = {
   intellingence: 1,
   luck: 1,
   gold: 0,
-  currentWeapon: 0
+  currentWeapon: []
 
 }
 
@@ -110,7 +110,8 @@ async function fetchItemById(itemId) {
 }
 
 async function fetchWeaponById(weaponId) {
-  try{
+  console.log('Fetching weapon with id:', weaponId); // Add this line for logging
+  try {
     const response = await fetch(`/api/weapons/${weaponId}`);
     if (response.ok) {
       const weapon = await response.json();
@@ -167,7 +168,7 @@ async function useItem(player, itemId) {
 async function equipWeapon(player, weaponId) {
   const weapon = await fetchWeaponById(weaponId);
   console.log(weapon);
-  const weaponPower = weapon.weaponPower;
+  const weaponPower = weapon.power;
   player.strength += weaponPower;
   strengthText.textContent = player.strength;
 }
