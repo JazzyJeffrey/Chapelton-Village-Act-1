@@ -1,7 +1,7 @@
 // Constant global variables for controlling the HTML 
 const showInventoryButton = document.getElementById("showInventoryButton");
 const equipWeaponButton = document.getElementById("equipWeapon");
-const equipArnorButton = document.getElementById("equipArmor");
+const equipArmorButton = document.getElementById("equipArmor");
 const useHealthPotionButton = document.getElementById("useHealthPotion");
 const useMagicPotionButton = document.getElementById("useMagicPotion");
 const closeInventoryButton = document.getElementById("closeInventoryButton");
@@ -10,11 +10,9 @@ const playerSheet = document.getElementById("playerStats");
 const showPlayerSheetButton = document.getElementById("showPlayerStatsButton");
 const closePlayerSheetButton = document.getElementById("closePlayerStatsButton");
 const strengthText = document.getElementById("strengthText");
-const testingButton = document.getElementById("button6");
-const testingButton2 = document.getElementById("button5");
-const testingButton3 = document.getElementById("button4");
 const healthText = document.querySelector("#healthText");
 const magicPointsText = document.querySelector("#mpText");
+const defenseText = document.getElementById("defenseText");
 
 // Function to initalize modal dialog window buttons
 function initalizewEventListeners() {
@@ -36,6 +34,10 @@ function initalizewEventListeners() {
   equipWeaponButton.addEventListener("click", async () => {
     await equipWeapon(player, 2);
   });
+
+  equipArmorButton.addEventListener("click", async () => {
+    await equipArmor(player, 2)
+  })
 
   closeInventoryButton.addEventListener("click", () => {
     inventoryWindow.close();
@@ -86,8 +88,9 @@ const player = {
   intellingence: 1,
   luck: 1,
   gold: 0,
-  currentWeapon: []
-
+  currentWeapon: [],
+  damage: 1,
+  defense: 1
 }
 
 
@@ -110,7 +113,7 @@ async function fetchItemById(itemId) {
 }
 
 async function fetchWeaponById(weaponId) {
-  console.log('Fetching weapon with id:', weaponId); // Add this line for logging
+  console.log('Fetching weapon with id:', weaponId); 
   try {
     const response = await fetch(`/api/weapons/${weaponId}`);
     if (response.ok) {
@@ -126,6 +129,22 @@ async function fetchWeaponById(weaponId) {
   }
 }
 
+async function fetchArmorById (armorId) {
+  try{
+    const response = await fetch(`api/armor/${armorId}`);
+    if (response.ok) {
+      const armor = await response.json();
+      return armor;
+    } else {
+      console.error('Failed to fetch armor:', response.statusText);
+      return null;
+    }
+  } catch (error) {
+    console.error('Error fetching armor:', error);
+    return null;
+  }
+}
+
 // Function to add an item to the inventory array
 async function addItemToInventory(inventory, itemId) {
   const item = await fetchItemById(itemId);
@@ -136,6 +155,12 @@ async function addItemToInventory(inventory, itemId) {
 async function addWeaponToInventory(inventory, weaponId) {
   const weapon = await fetchWeaponById(weaponId);
   inventory.push(weapon);
+  console.log(inventory)
+}
+
+async function addArmorToInventory(inventory, armorId) {
+  const armor = await fetchArmorById(armorId);
+  inventory.push(armor);
   console.log(inventory)
 }
 
@@ -165,6 +190,7 @@ async function useItem(player, itemId) {
   }
 };
 
+// Equip weapons and armor from inventory (subject to change)
 async function equipWeapon(player, weaponId) {
   const weapon = await fetchWeaponById(weaponId);
   console.log(weapon);
@@ -173,21 +199,14 @@ async function equipWeapon(player, weaponId) {
   strengthText.textContent = player.strength;
 }
 
-// Testing inventory functions
-testingButton.addEventListener("click", async () => {
-   await addItemToInventory(inventory, 1);
-  console.log(player.hp);
-})
+async function equipArmor(player, armorId) {
+  const armor = await fetchArmorById(armorId);
+  const defenseRating = armor.defense;
+  player.defense += defenseRating;
+  defenseText.textContent = player.defense;
+}
 
-testingButton2.addEventListener("click", async () => {
-  await addItemToInventory(inventory, 2);
-  console.log(player.mp);
-})
 
-testingButton3.addEventListener("click", async () => {
-  await addWeaponToInventory(inventory, 2);
-  console.log(inventory);
-})
 
 // Function for health potion
 async function useHealthPotion() {
@@ -247,3 +266,28 @@ if (characterName) {
     window.location.href = 'login.html'; // Redirect back to login if no name found
 }
 
+// Testing inventory functions
+const testingButton = document.getElementById("button6");
+const testingButton2 = document.getElementById("button5");
+const testingButton3 = document.getElementById("button4");
+const testingButton4 = document.getElementById("button3");
+
+testingButton.addEventListener("click", async () => {
+   await addItemToInventory(inventory, 1);
+  console.log(player.hp);
+})
+
+testingButton2.addEventListener("click", async () => {
+  await addItemToInventory(inventory, 2);
+  console.log(player.mp);
+})
+
+testingButton3.addEventListener("click", async () => {
+  await addWeaponToInventory(inventory, 2);
+  console.log(inventory);
+})
+
+testingButton4.addEventListener("click", async () => {
+  await addArmorToInventory(inventory, 2);
+  console.log(inventory);
+})

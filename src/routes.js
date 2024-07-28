@@ -41,7 +41,6 @@ router.get('/api/armor/:armorId', async (req, res) => {
   const armorId = req.params.armorId;
   const armor = await db.getArmorById(armorId)
   try {
-    const armor = await db.getArmorById(id);
     if (armor) {
       res.json(armor);
     } else {
@@ -55,9 +54,9 @@ router.get('/api/armor/:armorId', async (req, res) => {
 
 // Route to get enemy by enemy ID
 router.get('/api/enemies/:id', async (req, res) => {
-  const id = req.params.id;
+  const enemyId = req.params.enemyId;
+  const enemy = await db.getEnemyById(enemyId);
   try {
-    const enemy = await db.getEnemyById(id);
     if (enemy) {
       res.json(enemy);
     } else {

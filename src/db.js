@@ -24,13 +24,13 @@ async function getWeaponById(weaponId) {
   return result.rows[0];
 }
 
-async function getArmorById(id) {
-  const result = await client.query('SELECT * FROM armor WHERE id = $1', [id]);
+async function getArmorById(armorId) {
+  const result = await client.query('SELECT * FROM armor WHERE id = $1', [armorId]);
   return result.rows[0];
 }
 
-async function getEnemyById(id) {
-  const result = await client.query('SELECT * FROM enemies WHERE id = $1', [id]);
+async function getEnemyById(enemyId) {
+  const result = await client.query('SELECT * FROM enemies WHERE id = $1', [enemyId]);
   return result.rows[0];
 }
 
