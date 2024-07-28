@@ -23,8 +23,7 @@ function initalizewEventListeners() {
   });
 
   useHealthPotionButton.addEventListener("click", () => {
-   useHealthPotion();
-   
+    useHealthPotion();
   });
 
   useMagicPotionButton.addEventListener("click", () => {
@@ -55,8 +54,7 @@ function initalizewEventListeners() {
 
 };
 
-// Intialize inventory array
-let inventory = [];
+
 
 
 // Function to update/show the items in the inventory menu 
@@ -90,9 +88,10 @@ const player = {
   gold: 0,
   currentWeapon: [],
   damage: 1,
-  defense: 1
+  defense: 1,
 }
-
+// Intialize inventory array
+let inventory = [];
 
 
 // Function to fetch an item from the server
@@ -113,7 +112,7 @@ async function fetchItemById(itemId) {
 }
 
 async function fetchWeaponById(weaponId) {
-  console.log('Fetching weapon with id:', weaponId); 
+  console.log('Fetching weapon with id:', weaponId);
   try {
     const response = await fetch(`/api/weapons/${weaponId}`);
     if (response.ok) {
@@ -129,8 +128,8 @@ async function fetchWeaponById(weaponId) {
   }
 }
 
-async function fetchArmorById (armorId) {
-  try{
+async function fetchArmorById(armorId) {
+  try {
     const response = await fetch(`api/armor/${armorId}`);
     if (response.ok) {
       const armor = await response.json();
@@ -261,9 +260,9 @@ const currentCharacterName = document.querySelector("#currentCharacterText");
 
 const characterName = localStorage.getItem('characterName');
 if (characterName) {
-    currentCharacterName.textContent = characterName;
+  currentCharacterName.textContent = characterName;
 } else {
-    window.location.href = 'login.html'; // Redirect back to login if no name found
+  window.location.href = 'login.html'; // Redirect back to login if no name found
 }
 
 // Testing inventory functions
@@ -273,7 +272,7 @@ const testingButton3 = document.getElementById("button4");
 const testingButton4 = document.getElementById("button3");
 
 testingButton.addEventListener("click", async () => {
-   await addItemToInventory(inventory, 1);
+  await addItemToInventory(inventory, 1);
   console.log(player.hp);
 })
 
