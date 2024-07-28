@@ -32,7 +32,7 @@ router.get('/api/weapons/:weaponId', async (req, res) => {
     }
   } catch (error) {
     console.error("Error fetching weapon:", error.message);
-    res.status(500).json({ message: 'An error occured while fetching the weapon'});
+    res.status(500).json({ message: 'An error occured while fetching the weapon' });
   }
 });
 
@@ -48,7 +48,7 @@ router.get('/api/armor/:armorId', async (req, res) => {
     }
   } catch (error) {
     console.error("Error fetching armor:", error.message);
-    res.status(500).json({ message: 'An error occured while fetching the armor'});
+    res.status(500).json({ message: 'An error occured while fetching the armor' });
   }
 });
 

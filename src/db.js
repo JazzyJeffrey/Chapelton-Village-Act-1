@@ -11,8 +11,8 @@ const client = new Client({
 });
 
 client.connect()
-    .then(() => console.log("Connected to database"))
-    .catch(err => console.log("Connection error", err.stack));
+  .then(() => console.log("Connected to database"))
+  .catch(err => console.log("Connection error", err.stack));
 
 async function getItemById(id) {
   const result = await client.query('SELECT * FROM items WHERE id = $1', [id]);
