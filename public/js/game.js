@@ -31,7 +31,7 @@ function initalizewEventListeners() {
   });
 
   equipWeaponButton.addEventListener("click", async () => {
-    await equipWeapon(player, 2);
+    await equipWeapon(player, weaponId);
   });
 
   equipArmorButton.addEventListener("click", async () => {
