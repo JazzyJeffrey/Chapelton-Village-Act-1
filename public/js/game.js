@@ -265,7 +265,7 @@ if (characterName) {
   window.location.href = 'login.html'; // Redirect back to login if no name found
 }
 
-// Testing inventory functions
+// Testing inventory functions (Reverse order for button functions)
 const testingButton = document.getElementById("button6");
 const testingButton2 = document.getElementById("button5");
 const testingButton3 = document.getElementById("button4");

@@ -84,4 +84,20 @@ router.get('/api/drops/:enemyId', async (req, res) => {
   }
 });
 
+// Route to get Bosses by id
+router.get('/api/boss_monsters/:id', async (req, res) => {
+  const bossId = req.params.bossId;
+  try {
+    const boss = await getBossById(bossId);
+    if (boss) {
+      res.json(boss);
+    } else {
+      res.status(404).json({ message: 'Boss not found' });
+    }
+  } catch (error) {
+    console.error("Error fetching boss:", error.message);
+    res.status(500).json({ message: 'An error occured while fetching the boss' });
+  }
+    });
+
 module.exports = router;

@@ -39,6 +39,11 @@ async function getDropItemsByEnemyId(enemyId) {
   return result.rows;
 }
 
+async function getBossById(bossId) {
+  const result = await client.query('SELECT * FROM boss_monsters WHERE id = $1', [bossId]);
+  return result.rows[0];
+}
+
 
 
 module.exports = {
