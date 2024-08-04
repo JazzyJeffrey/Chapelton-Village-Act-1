@@ -51,5 +51,6 @@ module.exports = {
   getArmorById,
   getWeaponById,
   getEnemyById,
-  getDropItemsByEnemyId
+  getDropItemsByEnemyId,
+  getBossById
 };
