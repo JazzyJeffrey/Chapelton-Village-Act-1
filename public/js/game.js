@@ -1,5 +1,3 @@
-const { getEnemyById } = require("../../src/db");
-
 // Constant global variables for controlling the HTML 
 const showInventoryButton = document.getElementById("showInventoryButton");
 const equipWeaponButton = document.getElementById("equipWeapon");
