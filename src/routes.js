@@ -4,6 +4,22 @@ const db = require('./db');
 
 const router = express.Router();
 
+// Route to get location by ID
+router.get('/api/locations/:locationId', async (req, res) => {
+  const locationId = req.params.locationId;
+  try {
+    const location = await db.getLocationById(locationId)
+    if (location) {
+      res.json(location);
+    } else {
+      res.status(404).json({ message: 'Location not found' });
+    }
+  } catch (error) {
+    console.error('Error fetching location:', error.message);
+    res.status(500).json({ message: 'An error occurred while fetching the location' });
+  }
+});
+
 // Route to get items by ID
 router.get('/api/items/:id', async (req, res) => {
   const id = req.params.id;
@@ -72,7 +88,7 @@ router.get('/api/enemies/:id', async (req, res) => {
 router.get('/api/drops/:enemyId', async (req, res) => {
   const enemyId = req.params.enemyId;
   try {
-    const dropItems = await getDropItemsByEnemyId(enemyId);
+    const dropItems = await db.getDropItemsByEnemyId(enemyId);
     if (dropItems) {
       res.json(dropItems);
     } else {
@@ -88,7 +104,7 @@ router.get('/api/drops/:enemyId', async (req, res) => {
 router.get('/api/boss_monsters/:id', async (req, res) => {
   const bossId = req.params.bossId;
   try {
-    const boss = await getBossById(bossId);
+    const boss = await db.getBossById(bossId);
     if (boss) {
       res.json(boss);
     } else {

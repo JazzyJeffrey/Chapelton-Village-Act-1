@@ -1,3 +1,5 @@
+const { getEnemyById } = require("../../src/db");
+
 // Constant global variables for controlling the HTML 
 const showInventoryButton = document.getElementById("showInventoryButton");
 const equipWeaponButton = document.getElementById("equipWeapon");
@@ -75,6 +77,14 @@ function updateInventory() {
 // Intialize all the button functionality 
 initalizewEventListeners();
 
+// Function to calcultate player attack power
+function calculatePlayerAttack(strength) {
+  const minAttack = strength;
+  const maxAttack = strength * 2;
+  const attack = Math.floor(Math.random() * (maxAttack - minAttack + 1)) + minAttack;
+  return attack;
+}
+
 // Player Character
 const player = {
   xp: 0,
@@ -83,11 +93,10 @@ const player = {
   mp: 100,
   strength: 1,
   constitution: 1,
-  intellingence: 1,
+  intelligence: 1,
   luck: 1,
   gold: 0,
-  currentWeapon: [],
-  damage: 1,
+  attack: calculatePlayerAttack(this.strength),
   defense: 1,
 }
 // Intialize inventory array
@@ -134,6 +143,22 @@ async function fetchArmorById(armorId) {
     if (response.ok) {
       const armor = await response.json();
       return armor;
+    } else {
+      console.error('Failed to fetch armor:', response.statusText);
+      return null;
+    }
+  } catch (error) {
+    console.error('Error fetching armor:', error);
+    return null;
+  }
+}
+
+async function fetchEnemyById(enemyId) {
+  try {
+    const response = await fetch(`api/enemies/${enemyId}`);
+    if (response.ok) {
+      const enemy = await response.json();
+      return enemy;
     } else {
       console.error('Failed to fetch armor:', response.statusText);
       return null;
@@ -290,3 +315,7 @@ testingButton4.addEventListener("click", async () => {
   await addArmorToInventory(inventory, 2);
   console.log(inventory);
 })
+
+
+
+

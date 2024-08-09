@@ -44,6 +44,11 @@ async function getBossById(bossId) {
   return result.rows[0];
 }
 
+async function getLocationById(locationId) {
+  const result = await client.query('SELECT * FROM locations WHERE id = $1', [locationId]);
+  return result.rows[0];
+}
+
 
 
 module.exports = {
@@ -52,5 +57,6 @@ module.exports = {
   getWeaponById,
   getEnemyById,
   getDropItemsByEnemyId,
-  getBossById
+  getBossById,
+  getLocationById
 };
